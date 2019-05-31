@@ -73,12 +73,12 @@ void UHooker::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponen
 	{
 		DrawDebugLine(GetWorld(), GetReachLineStart(), HookHit.Location, FColor(255, 0, 0), false, 0.f, 0.f, 10.f);
 
-		FVector DeltaLocation = HookHit.Location - GetOwner()->GetActorLocation();
-		FVector DesiredNewLocation = GetOwner()->GetActorLocation() + DeltaLocation;
+		FVector Direction = HookHit.Location - GetOwner()->GetActorLocation();
+		Direction.Normalize();
 
 		if (CharacterMovementComponent != nullptr)
 		{
-			CharacterMovementComponent->AddImpulse(DeltaLocation * Speed, true);
+			CharacterMovementComponent->AddImpulse(Direction * Speed, true);
 		}
 	}
 }
